@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import ProgammingPage from "./pages/ProgrammingPage";
 import CovidPage from "./pages/CovidPage";
 import SavedNewsPage from "./pages/SavedNews";
+import SearchedPage from "./pages/SearchedPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -32,6 +33,11 @@ const router = createBrowserRouter([
   {
     path: "/saved",
     element: <SavedNewsPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/search",
+    element: <SearchedPage />,
     errorElement: <ErrorPage />,
   },
 ]);

@@ -4,11 +4,15 @@ import { Navbar, NewsCard } from "../components";
 import { useEffect, useState } from "react";
 import { fetchMovies } from "../store/actions";
 import { NEWS_REDUCER_CASES } from "../store/reducers";
+import { useNavigate } from "react-router-dom";
+
 
 function ProgrammingPage() {
   const [search, setSearch] = useState("");
   const newsReducer = useSelector((state) => state);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     dispatch(
@@ -27,11 +31,9 @@ function ProgrammingPage() {
           setSearch(value);
         }}
         onClick={() => {
-          dispatch(
-            fetchMovies({
-              q: search,
-            })
-          );
+          if (search.trim()) {
+            navigate(`/search?q=${encodeURIComponent(search)}`);
+          }
         }}
       />
       <section className={styles.pageContainer}>
@@ -43,7 +45,7 @@ function ProgrammingPage() {
             const { headline, abstract, source, byline, web_url } = n;
             const isSaved = newsReducer.savedNews.some(
               (saved) => saved._id === n._id
-            ); 
+            );
             return (
               <NewsCard
                 key={n._id}

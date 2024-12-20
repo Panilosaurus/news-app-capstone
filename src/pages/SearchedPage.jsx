@@ -2,24 +2,26 @@ import styles from "./CommonPageLayout.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Navbar, NewsCard } from "../components";
 import { useEffect, useState } from "react";
-import { NEWS_REDUCER_CASES } from "../store/reducers";
 import { fetchMovies } from "../store/actions";
-import { useNavigate } from "react-router-dom";
+import { NEWS_REDUCER_CASES } from "../store/reducers";
+import { useLocation } from "react-router-dom";
 
-function HomePage() {
-  const [search, setSearch] = useState("");
-  const navigate = useNavigate();
-  const newsReducer = useSelector(function (state) {
-    return state;
-  });
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+function SearchedPage() {
+  const query = useQuery(); 
+  const initialSearch = query.get("q") || ""; 
+  const [search, setSearch] = useState(initialSearch);
+
+  const newsReducer = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("#1 useEffect()");
-    const query = {
-      fq: `glocations:("Indonesia")`,
-    };
-    dispatch(fetchMovies(query));
+    if (search.trim()) {
+      dispatch(fetchMovies({ q: search }));
+    }
   }, []);
 
   return (
@@ -29,21 +31,23 @@ function HomePage() {
           setSearch(value);
         }}
         onClick={() => {
-          if (search.trim()) {
-            navigate(`/search?q=${encodeURIComponent(search)}`);
-          }
+          dispatch(
+            fetchMovies({
+              q: search,
+            })
+          );
         }}
       />
       <section className={styles.pageContainer}>
         <section>
-          <h1>Main News</h1>
+          <h1>Search Result</h1>
         </section>
         <section className={styles.newsContainer}>
           {newsReducer.news.map((n, i) => {
             const { headline, abstract, source, byline, web_url } = n;
             const isSaved = newsReducer.savedNews.some(
               (saved) => saved._id === n._id
-            ); 
+            );
             return (
               <NewsCard
                 key={n._id}
@@ -54,12 +58,11 @@ function HomePage() {
                 onViewNewDetail={web_url}
                 isSaved={newsReducer.savedNews.some(
                   (saved) => saved._id === n._id
-                )} 
+                )}
                 onSave={() => {
                   const isAlreadySaved = newsReducer.savedNews.some(
                     (saved) => saved._id === n._id
                   );
-
                   if (isAlreadySaved) {
                     const updatedSavedNews = newsReducer.savedNews.filter(
                       (saved) => saved._id !== n._id
@@ -93,4 +96,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default SearchedPage;

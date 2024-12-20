@@ -3,10 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { Navbar, NewsCard } from "../components";
 import { useEffect, useState } from "react";
 import { NEWS_REDUCER_CASES } from "../store/reducers";
-import { fetchMovies } from "../store/actions";
+import { useNavigate } from "react-router-dom";
 
 function SavedNewsPage() {
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
   const newsReducer = useSelector(function (state) {
     return state;
   });
@@ -24,11 +25,9 @@ function SavedNewsPage() {
           console.log(value);
         }}
         onClick={() => {
-          dispatch(
-            fetchMovies({
-              q: search,
-            })
-          );
+          if (search.trim()) {
+            navigate(`/search?q=${encodeURIComponent(search)}`);
+          }
         }}
       />
       <section className={styles.pageContainer}>

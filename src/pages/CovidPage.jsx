@@ -4,11 +4,13 @@ import { Navbar, NewsCard } from "../components";
 import { useEffect, useState } from "react";
 import { fetchMovies } from "../store/actions";
 import { NEWS_REDUCER_CASES } from "../store/reducers";
+import { useNavigate } from "react-router-dom";
 
 function CovidPage() {
   const [search, setSearch] = useState("");
   const newsReducer = useSelector((state) => state);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(
@@ -26,11 +28,9 @@ function CovidPage() {
           setSearch(value);
         }}
         onClick={() => {
-          dispatch(
-            fetchMovies({
-              q: search,
-            })
-          );
+          if (search.trim()) {
+            navigate(`/search?q=${encodeURIComponent(search)}`);
+          }
         }}
       />
       <section className={styles.pageContainer}>
