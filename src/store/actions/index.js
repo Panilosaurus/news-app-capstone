@@ -8,6 +8,7 @@ const BASE_API_URL =
 export function fetchMovies(query) {
   return async function (dispatch) {
     console.log("#2 fetchMovies()");
+    console.log(process.env.REACT_APP_API_KEY)
     try {
       dispatch({
         type: NEWS_REDUCER_CASES.FETCHING_NEWS,
