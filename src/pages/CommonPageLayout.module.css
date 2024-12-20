@@ -1,0 +1,25 @@
+.pageContainer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.pageTitleContainer {
+    text-align: center;
+}
+
+.newsContainer {
+    border-top: 1px solid #D0D0D0;
+    width: 80%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: stretch;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}

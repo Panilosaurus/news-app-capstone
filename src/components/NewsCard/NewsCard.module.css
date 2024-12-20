@@ -1,0 +1,57 @@
+.newsCard {
+    width: 200px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    flex-direction: column;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.newsCard h1 {
+    font-size: 21px;
+}
+
+.newsCard h3 {
+    color: grey;
+    font-size: 15px;
+}
+
+.newsCard h4 {
+    color: #A5A9AC;
+    font-size: 17px;
+}
+
+
+.newsCard p {
+    font-size: 12px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 6px;
+}
+
+.newsPageButton {
+    background-color: #1AC2E9;
+    border-color: black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.saveButton {
+    background-color: #1265ED;
+    border-color: black;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+}
+
+a{
+    text-decoration: none;
+    color: #ffff;
+}
