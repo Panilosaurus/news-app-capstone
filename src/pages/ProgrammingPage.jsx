@@ -25,7 +25,6 @@ function ProgrammingPage() {
       <Navbar
         onChange={(value) => {
           setSearch(value);
-          console.log(value);
         }}
         onClick={() => {
           dispatch(

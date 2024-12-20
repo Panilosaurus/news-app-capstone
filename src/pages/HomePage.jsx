@@ -13,7 +13,6 @@ function HomePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("env:", process.env.REACT_APP_API_KEY);
     console.log("#1 useEffect()");
     const query = {
       fq: `glocations:("Indonesia")`,
@@ -26,7 +25,6 @@ function HomePage() {
       <Navbar
         onChange={(value) => {
           setSearch(value);
-          console.log(value);
         }}
         onClick={() => {
           dispatch(
